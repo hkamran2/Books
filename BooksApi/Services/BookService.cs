@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using BooksApi.Repository;
 using Microsoft.EntityFrameworkCore;
 using Models.DTO;
@@ -10,12 +11,14 @@ namespace BooksApi.Services
 {
     public class BookService : IBookService
     {
-        private IUnitofWork _unitofWork;
-        private IRepository<Book> _booksRepository;
+        private readonly IUnitofWork _unitofWork;
+        private readonly IRepository<Book> _booksRepository;
+        private readonly IMapper _mapper;
 
-        public BookService(IUnitofWork unitofWork)
+        public BookService(IUnitofWork unitofWork, IMapper mapper)
         {
             _unitofWork = unitofWork ?? throw new ArgumentNullException(nameof(unitofWork));
+            _mapper = mapper;
             _booksRepository = _unitofWork.GetRepository<Book>() ?? throw new ArgumentNullException(nameof(unitofWork));
         }
 
@@ -49,6 +52,7 @@ namespace BooksApi.Services
 
         public void AddBook(BookCreation book)
         {
+            _booksRepository.Add(_mapper.Map<Book>(book));
         }
     }
 }

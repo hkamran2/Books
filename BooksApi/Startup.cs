@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BooksApi.Context;
+using BooksApi.Filters.ResultFilters;
 using BooksApi.Profiles;
 using BooksApi.Repository;
 using BooksApi.Services;
@@ -38,16 +39,13 @@ namespace BooksApi
             services.AddDbContext<BooksContext>(db => db.UseSqlServer(connectionString));
             //Add the UoW that contains the db context 
             services.AddTransient<IUnitofWork, UnitofWork>();
-            
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<BookProfile>();
-            });
 
-            var mapper = config.CreateMapper();
             services.AddAutoMapper(typeof(Startup));
             /** ---------------- Services ---------------------- */
             services.AddTransient<IBookService, BookService>();
+
+            /** ---------------- Action Result Filters ---------------------- */
+            services.AddSingleton<BooksCollectionResult>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

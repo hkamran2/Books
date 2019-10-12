@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BooksApi.Filters.ResultFilters;
 using BooksApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Models.DTO;
 
 namespace BooksApi.Controllers
@@ -15,17 +17,18 @@ namespace BooksApi.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
-        private readonly IMapper _mapper;
+        public static IMapper Mapper;
         public BooksController(IBookService bookService, IMapper mapper)
         {
             _bookService = bookService;
-            _mapper = mapper;
+            Mapper = mapper;
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(BooksCollectionResult))]
         public async Task<IActionResult> GetBooks()
         {
-            return Ok(_mapper.Map<IEnumerable<BookDTO>>(await _bookService.GetBooksAsync()));
+            return Ok(await _bookService.GetBooksAsync());
         }
     }
 }
