@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using BooksApi.Context;
+using BooksApi.Profiles;
 using BooksApi.Repository;
+using BooksApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,7 +37,17 @@ namespace BooksApi
             var connectionString = Configuration["ConnectionStrings:BooksDBConnectionString"];
             services.AddDbContext<BooksContext>(db => db.UseSqlServer(connectionString));
             //Add the UoW that contains the db context 
-            services.AddScoped<IUnitofWork, UnitofWork>();
+            services.AddTransient<IUnitofWork, UnitofWork>();
+            
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<BookProfile>();
+            });
+
+            var mapper = config.CreateMapper();
+            services.AddAutoMapper(typeof(Startup));
+            /** ---------------- Services ---------------------- */
+            services.AddTransient<IBookService, BookService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

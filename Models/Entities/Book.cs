@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Text;
 
 namespace Models.Entities
@@ -11,6 +12,7 @@ namespace Models.Entities
         {
             [Key]
             public Guid Id { get; set; }
+            public string ISBN { get; set; }
 
             [Required]
             [MaxLength(150)]
