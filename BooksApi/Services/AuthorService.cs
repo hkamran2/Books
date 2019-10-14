@@ -9,7 +9,7 @@ using Models.Entities;
 
 namespace BooksApi.Services
 {
-    class AuthorService : IAuthorService
+    public class AuthorService : IAuthorService
     {
         private readonly IUnitofWork _unitofWork;
         private readonly IMapper _mapper;

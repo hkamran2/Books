@@ -11,7 +11,7 @@ namespace BooksApi.Services
     {
         Task<IEnumerable<Author>> GetAuthorsAsync();
         Task<Author> GetAuthorAsync(Guid id);
-        Task<Guid> AddAuthorAsync(AuthorDTO author);
+        Task<Guid> AddAuthorAsync(AuthorCreation author);
         Task<bool> RemoveAuthorAsync(Guid id);
     }
 }

@@ -20,6 +20,7 @@ namespace BooksApi.Controllers
         {
             _service = service;
         }
+
         [ServiceFilter(typeof(AuthorsCollectionResult))]
         public async Task<IActionResult> GetAuthors()
         {

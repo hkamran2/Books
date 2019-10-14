@@ -32,11 +32,14 @@ namespace BooksApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
             /** ---------------- ED DbContext Core Config -------------------- */
             var connectionString = Configuration["ConnectionStrings:BooksDBConnectionString"];
             services.AddDbContext<BooksContext>(db => db.UseSqlServer(connectionString));
+            
             /** ---------------- AutoMapper -------------------- */
             services.AddAutoMapper(typeof(Startup));
+        
             /** ---------------- Services ---------------------- */
             //Unit of work that contains the db context 
             services.AddTransient<IUnitofWork, UnitofWork>();
@@ -49,8 +52,6 @@ namespace BooksApi
             services.AddSingleton<AuthorResult>();
             services.AddSingleton<AuthorsCollectionResult>();
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
