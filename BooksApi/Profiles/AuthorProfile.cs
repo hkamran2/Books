@@ -12,7 +12,8 @@ namespace BooksApi.Profiles
     {
         public AuthorProfile()
         {
-            CreateMap<Author, AuthorDTO>();
+            CreateMap<Author, AuthorDTO>()
+                .ReverseMap();
         }
     }
 }
