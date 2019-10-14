@@ -32,17 +32,16 @@ namespace BooksApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            //For development purposes pick this up from appsettings.json
-            //For production store these inside environment variables
+            /** ---------------- ED DbContext Core Config -------------------- */
             var connectionString = Configuration["ConnectionStrings:BooksDBConnectionString"];
             services.AddDbContext<BooksContext>(db => db.UseSqlServer(connectionString));
-            //Add the UoW that contains the db context 
-            services.AddTransient<IUnitofWork, UnitofWork>();
-
+            /** ---------------- AutoMapper -------------------- */
             services.AddAutoMapper(typeof(Startup));
             /** ---------------- Services ---------------------- */
+            //Unit of work that contains the db context 
+            services.AddTransient<IUnitofWork, UnitofWork>();
             services.AddTransient<IBookService, BookService>();
+            services.AddTransient<IAuthorService, AuthorService>();
 
             /** ---------------- Action Result Filters ---------------------- */
             services.AddSingleton<BooksCollectionResult>();

@@ -14,11 +14,9 @@ namespace BooksApi.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
-        private readonly IMapper _mapper;
-        public BooksController(IBookService bookService, IMapper mapper)
+        public BooksController(IBookService bookService)
         {
             _bookService = bookService;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -41,6 +39,7 @@ namespace BooksApi.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(BooksResult))]
         public async Task<IActionResult> AddBook([FromBody] BookCreation model)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -49,7 +48,7 @@ namespace BooksApi.Controllers
             //Get the book that was inserted
             var book = await _bookService.GetBookAsync(guid);
 
-            return CreatedAtRoute("GetBook", new {id = guid}, _mapper.Map<BookDTO>(book));
+            return CreatedAtRoute("GetBook", new {id = guid}, book);
         }
 
         [HttpPut]
