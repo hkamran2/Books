@@ -47,6 +47,8 @@ namespace BooksApi
             /** ---------------- Action Result Filters ---------------------- */
             services.AddSingleton<BooksCollectionResult>();
             services.AddSingleton<BooksResult>();
+            services.AddSingleton<AuthorResult>();
+            services.AddSingleton<AuthorsCollectionResult>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
