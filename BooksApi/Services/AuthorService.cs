@@ -33,7 +33,7 @@ namespace BooksApi.Services
                 .SingleAsync();
         }
 
-        public async Task<Guid> AddAuthorAsync(AuthorDTO model)
+        public async Task<Guid> AddAuthorAsync(AuthorCreation model)
         {
             var author = _mapper.Map<Author>(model);
 

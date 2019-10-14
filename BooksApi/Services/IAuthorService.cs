@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using BooksApi.Repository;
-using Microsoft.EntityFrameworkCore;
 using Models.DTO;
 using Models.Entities;
 
@@ -16,52 +13,5 @@ namespace BooksApi.Services
         Task<Author> GetAuthorAsync(Guid id);
         Task<Guid> AddAuthorAsync(AuthorDTO author);
         Task<bool> RemoveAuthorAsync(Guid id);
-    }
-
-    class AuthorService : IAuthorService
-    {
-        private readonly IUnitofWork _unitofWork;
-        private readonly IMapper _mapper;
-        private readonly IRepository<Author> _repository;
-
-        public AuthorService(IUnitofWork unitofWork, IMapper mapper)
-        {
-            _unitofWork = unitofWork;
-            _mapper = mapper;
-            _repository = _unitofWork.GetRepository<Author>();
-        }
-        public async Task<IEnumerable<Author>> GetAuthorsAsync()
-        {
-            return await _repository.Get().ToArrayAsync();
-        }
-
-        public async Task<Author> GetAuthorAsync(Guid id)
-        {
-            return await _repository
-                .Get(a => a.Id == id)
-                .SingleAsync();
-        }
-
-        public async Task<Guid> AddAuthorAsync(AuthorDTO model)
-        {
-            var author = _mapper.Map<Author>(model);
-
-            _repository.Add(author);
-
-            await _unitofWork.SaveChangesAsync();
-
-            return author.Id;
-        }
-
-        public async Task<bool> RemoveAuthorAsync(Guid id)
-        {
-            var author = await GetAuthorAsync(id);
-
-            if (author == null) return false;
-
-            _repository.Delete(author);
-
-            return await _unitofWork.SaveChangesAsync();
-        }
     }
 }

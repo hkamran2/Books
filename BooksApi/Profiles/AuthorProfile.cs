@@ -13,7 +13,9 @@ namespace BooksApi.Profiles
         public AuthorProfile()
         {
             CreateMap<Author, AuthorDTO>()
-                .ReverseMap();
+                .ForMember(a => a.Name, opt => opt.MapFrom(a => $"{a.FirstName} {a.LastName}"));
+
+            CreateMap<AuthorCreation, Author>();
         }
     }
 }
