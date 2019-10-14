@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using BooksApi.Repository;
@@ -40,19 +42,51 @@ namespace BooksApi.Services
 
         public async Task<Book> GetBookAsync(Guid id)
         {
-            return await _booksRepository
-                .FindAsync(b => b.AuthorId == id);
+            return await _booksRepository.Get(b => b.Id == id)
+                .Include(b => b.Author)
+                .SingleAsync();
         }
-
+        
         public async Task<Book> GetBookAsync(string ISBN)
         {
             return await _booksRepository
-                .FindAsync(b => b.ISBN == ISBN);
+                .Get(b => b.ISBN == ISBN)
+                .Include(b => b.Author)
+                .SingleAsync(); ;
         }
 
-        public void AddBook(BookCreation book)
+        public async Task<Guid> AddBookAsync(BookCreation book)
         {
-            _booksRepository.Add(_mapper.Map<Book>(book));
+            var bookToCreate = _mapper.Map<Book>(book);
+
+            _booksRepository.Add(bookToCreate);
+
+            await _unitofWork.SaveChangesAsync();
+
+            //Return id for the controller action to pass
+            //in the id into for the location header
+            return bookToCreate.Id;
+        }
+
+        public async Task EditBookAsync(Guid id, BookCreation model)
+        {
+            var book = await GetBookAsync(id);
+            //Make changes to the book
+            book.AuthorId = model.AuthorId;
+            book.ISBN = model.ISBN;
+            book.Description = model.Description;
+            book.Title = model.Title;
+
+            await _unitofWork.SaveChangesAsync();
+        }
+
+        public async Task<bool> RemoveBookAsync(Guid id)
+        {
+            var book = await GetBookAsync(id);
+            //if the book is not found then return false
+            if (book == null) return false;
+            _booksRepository.Delete(book);
+            return await _unitofWork.SaveChangesAsync();
         }
     }
 }

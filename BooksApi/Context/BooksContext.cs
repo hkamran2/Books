@@ -19,13 +19,20 @@ namespace BooksApi.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Make the ISBN number unique
+            modelBuilder.Entity<Book>(b =>
+            {
+                b.HasKey(k => k.Id);
+                //Add the unique constraint for the isbn number
+                b.HasAlternateKey(k => k.ISBN);
+            });
+
             // seed the database with dummy data
             AuthorDataSeeder.AuthorDataSeed(modelBuilder);
 
             // seed the database with dummy data
             BooksDataSeeder.SeedBookData(modelBuilder);
-            //Make the ISBN number unique
-            modelBuilder.Entity<Book>(b => b.HasKey(k => new {k.Id, k.ISBN}));
+            
 
             base.OnModelCreating(modelBuilder);
         }

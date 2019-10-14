@@ -12,5 +12,6 @@ namespace BooksApi.Repository
         IQueryable<T> Get(Expression<Func<T, bool>> filter);
         Task<T> FindAsync(Expression<Func<T, bool>> filter);
         void Add(T obj);
+        void Delete(T obj);
     }
 }

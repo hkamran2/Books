@@ -11,7 +11,8 @@ namespace Models.Entities
         public class Book
         {
             [Key]
-            public Guid Id { get; set; }
+            [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
             public string ISBN { get; set; }
 
             [Required]

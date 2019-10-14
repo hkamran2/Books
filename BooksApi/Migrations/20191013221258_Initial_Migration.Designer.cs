@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BooksApi.Migrations
 {
     [DbContext(typeof(BooksContext))]
-    [Migration("20191012183904_ISBN_Added")]
-    partial class ISBN_Added
+    [Migration("20191013221258_Initial_Migration")]
+    partial class Initial_Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,13 +56,16 @@ namespace BooksApi.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(2500);
 
-                    b.Property<string>("ISBN");
+                    b.Property<string>("ISBN")
+                        .IsRequired();
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(150);
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("ISBN");
 
                     b.HasIndex("AuthorId");
 

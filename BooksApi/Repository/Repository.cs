@@ -44,5 +44,10 @@ namespace BooksApi.Repository
         {
             return await _set.FirstOrDefaultAsync(filter);
         }
+
+        public void Remove(T obj)
+        {
+            _set.Remove(obj);
+        }
     }
 }

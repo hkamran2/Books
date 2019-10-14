@@ -15,7 +15,8 @@ namespace BooksApi.Profiles
             CreateMap<Book, BookDTO>()
                 .ForMember(b => b.Author, opt => opt.MapFrom(a => $"{a.Author.FirstName} {a.Author.LastName}"));
 
-            CreateMap<BookCreation, Book>();
+            CreateMap<BookCreation, Book>()
+                .ForMember(b => b.Id, opt => opt.Ignore());
         }
     }
 }
