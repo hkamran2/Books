@@ -9,7 +9,7 @@ using Models.DTO;
 
 namespace BooksApi.Filters.ResultFilters
 {
-    public class AuthorResult
+    public class AuthorResult : IAsyncResultFilter
     {
         private IMapper _mapper;
 

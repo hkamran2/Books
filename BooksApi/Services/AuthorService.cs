@@ -30,7 +30,7 @@ namespace BooksApi.Services
         {
             return await _repository
                 .Get(a => a.Id == id)
-                .SingleAsync();
+                .SingleOrDefaultAsync();
         }
 
         public async Task<Guid> AddAuthorAsync(AuthorCreation model)
@@ -53,6 +53,18 @@ namespace BooksApi.Services
             _repository.Delete(author);
 
             return await _unitofWork.SaveChangesAsync();
+        }
+
+        public async Task<Author> EditAuthorAsync(Guid id, AuthorCreation model)
+        {
+            var author = await GetAuthorAsync(id);
+            if (author != null)
+            {
+                author.FirstName = model.FirstName;
+                author.LastName = model.LastName;
+            }
+
+            return author;
         }
     }
 }

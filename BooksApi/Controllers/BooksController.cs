@@ -53,13 +53,16 @@ namespace BooksApi.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [ServiceFilter(typeof(BooksResult))]
         public async Task<IActionResult> EditBook(Guid id, BookCreation model)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            await _bookService.EditBookAsync(id, model);
+            var book = await _bookService.EditBookAsync(id, model);
 
-            return Ok(model);
+            if (book == null) return NotFound();
+
+            return Ok(book);
         }
 
         [HttpDelete]

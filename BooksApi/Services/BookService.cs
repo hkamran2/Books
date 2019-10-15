@@ -44,7 +44,7 @@ namespace BooksApi.Services
         {
             return await _booksRepository.Get(b => b.Id == id)
                 .Include(b => b.Author)
-                .SingleAsync();
+                .SingleOrDefaultAsync();
         }
         
         public async Task<Book> GetBookAsync(string ISBN)
@@ -52,7 +52,7 @@ namespace BooksApi.Services
             return await _booksRepository
                 .Get(b => b.ISBN == ISBN)
                 .Include(b => b.Author)
-                .SingleAsync(); ;
+                .SingleOrDefaultAsync();
         }
 
         public async Task<Guid> AddBookAsync(BookCreation book)
@@ -68,16 +68,21 @@ namespace BooksApi.Services
             return bookToCreate.Id;
         }
 
-        public async Task EditBookAsync(Guid id, BookCreation model)
+        public async Task<Book> EditBookAsync(Guid id, BookCreation model)
         {
             var book = await GetBookAsync(id);
-            //Make changes to the book
-            book.AuthorId = model.AuthorId;
-            book.ISBN = model.ISBN;
-            book.Description = model.Description;
-            book.Title = model.Title;
-
+            if (book != null)
+            {
+                //Make changes to the book
+                book.AuthorId = model.AuthorId;
+                book.ISBN = model.ISBN;
+                book.Description = model.Description;
+                book.Title = model.Title;
+            }
+            
             await _unitofWork.SaveChangesAsync();
+
+            return book;
         }
 
         public async Task<bool> RemoveBookAsync(Guid id)

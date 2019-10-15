@@ -13,5 +13,6 @@ namespace BooksApi.Services
         Task<Author> GetAuthorAsync(Guid id);
         Task<Guid> AddAuthorAsync(AuthorCreation author);
         Task<bool> RemoveAuthorAsync(Guid id);
+        Task<Author> EditAuthorAsync(Guid id, AuthorCreation model);
     }
 }

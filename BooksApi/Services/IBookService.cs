@@ -15,7 +15,7 @@ namespace BooksApi.Services
 
         Task<Book> GetBookAsync(string ISBN);
         Task<Guid> AddBookAsync(BookCreation book);
-        Task EditBookAsync(Guid id, BookCreation model);
+        Task<Book> EditBookAsync(Guid id, BookCreation model);
         Task<bool> RemoveBookAsync(Guid id);
 
     }
