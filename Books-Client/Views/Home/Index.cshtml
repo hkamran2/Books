@@ -1,8 +1,13 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
+﻿@model IEnumerable<Models.DTO.BookDTO>
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @foreach (var i in Model)   
+    {
+    <div class="card mb-4">
+        <div class="card-header font-weight-bold">@i.Title</div>
+        <div class="card-body">
+            <h6 class="card-title">ISBN: @i.ISBN Author: @i.@i.Author</h6>
+            <p class="card-text">@i.Description</p>
+        </div>
+    </div>
+    }
 </div>

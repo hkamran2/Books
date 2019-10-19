@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Books_Client.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +34,14 @@ namespace Books_Client
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //IHttpClientFactory injector
+            services.AddHttpClient("books-api", c =>
+            {
+                //set the base uri
+                c.BaseAddress = new Uri("http://localhost:54536/api/");
+                //set the default to be json
+                c.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
