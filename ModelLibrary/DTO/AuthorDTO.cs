@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Models.DTO
+namespace ModelLibrary.DTO
 {
     public class AuthorDTO
     {

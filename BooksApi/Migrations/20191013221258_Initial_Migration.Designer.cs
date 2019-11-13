@@ -21,7 +21,7 @@ namespace BooksApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Models.Entities.Author", b =>
+            modelBuilder.Entity("ModelLibrary.Entities.Author", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -46,7 +46,7 @@ namespace BooksApi.Migrations
                     );
                 });
 
-            modelBuilder.Entity("Models.Entities.Book", b =>
+            modelBuilder.Entity("ModelLibrary.Entities.Book", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -80,9 +80,9 @@ namespace BooksApi.Migrations
                     );
                 });
 
-            modelBuilder.Entity("Models.Entities.Book", b =>
+            modelBuilder.Entity("ModelLibrary.Entities.Book", b =>
                 {
-                    b.HasOne("Models.Entities.Author", "Author")
+                    b.HasOne("ModelLibrary.Entities.Author", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade);

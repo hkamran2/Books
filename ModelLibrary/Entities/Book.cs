@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Text;
 
-namespace Models.Entities
+namespace ModelLibrary.Entities
 {
         [Table("Books")]
         public class Book

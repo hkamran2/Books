@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BooksApi.Repository;
 using Microsoft.EntityFrameworkCore;
-using Models.DTO;
-using Models.Entities;
+using ModelLibrary.DTO;
+using ModelLibrary.Entities;
 
 namespace BooksApi.Services
 {

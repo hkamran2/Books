@@ -8,7 +8,7 @@ using Books_Client.Http;
 using Microsoft.AspNetCore.Mvc;
 using Books_Client.Models;
 using Microsoft.AspNetCore.Mvc.Formatters.Xml;
-using Models.DTO;
+using ModelLibrary.DTO;
 
 namespace Books_Client.Controllers
 {

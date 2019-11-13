@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Models.DTO;
-using Models.Entities;
+using ModelLibrary.DTO;
+using ModelLibrary.Entities;
 
 namespace BooksApi.Profiles
 {

@@ -8,7 +8,7 @@ using BooksApi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
-using Models.DTO;
+using ModelLibrary.DTO;
 
 namespace BooksApi.Controllers
 {

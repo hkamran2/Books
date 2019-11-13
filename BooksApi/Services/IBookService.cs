@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Models.DTO;
-using Models.Entities;
+using ModelLibrary.DTO;
+using ModelLibrary.Entities;
 
 namespace BooksApi.Services
 {

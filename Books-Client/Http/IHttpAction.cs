@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Models.DTO;
+using ModelLibrary.DTO;
 
 namespace Books_Client.Http
 {

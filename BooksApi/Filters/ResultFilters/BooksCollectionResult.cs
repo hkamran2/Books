@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Models.DTO;
+using ModelLibrary.DTO;
 
 namespace BooksApi.Filters.ResultFilters
 {
