@@ -51,6 +51,9 @@ namespace BooksApi
             services.AddSingleton<BooksResult>();
             services.AddSingleton<AuthorResult>();
             services.AddSingleton<AuthorsCollectionResult>();
+
+            /** ----------------- Swagger ------------------*/
+            services.AddSwaggerDocument();
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -62,6 +65,8 @@ namespace BooksApi
             {
                 app.UseHsts();
             }
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
             app.UseMvc();
