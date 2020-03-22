@@ -88,7 +88,6 @@ namespace BooksApi.Services
         public async Task<bool> RemoveBookAsync(Guid id)
         {
             var book = await GetBookAsync(id);
-            //if the book is not found then return false
             if (book == null) return false;
             _booksRepository.Delete(book);
             return await _unitofWork.SaveChangesAsync();

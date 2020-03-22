@@ -7,9 +7,12 @@ services:
         ports: 
             - "8080:80"
         build: .
+        environment: 
+            SQLCONNSTR_BooksDBConnectionString : ${SQLCONNSTR_BooksDBConnectionString}
+            ASPNETCORE_ENVIRONMENT : ${ASPNETCORE_ENVIRONMENT}
     db:
         image: "mcr.microsoft.com/mssql/server"
         environment: 
-            SA_PASSWORD : "A4SQVu9RMLJ3e2zy3sZaRsxY3RZsfj"
+            SA_PASSWORD : ${SA_PASSWORD}
             ACCEPT_EULA : "Y"
     
